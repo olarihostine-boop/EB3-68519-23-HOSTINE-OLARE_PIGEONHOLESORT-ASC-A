@@ -1,66 +1,80 @@
-// HOSTINE OLARE
-// EB3/68519/23
-// C++ - Simplified Pigeonhole Sort
+//HOSTINE OLARE
+//EB3/68519/23
+//C++
 
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <algorithm>
+
 using namespace std;
 
-void pigeonholeSort(vector<int>& arr, long long& comp, long long& moves) {
-    if (arr.empty()) {
-        comp = moves = 0;
-        return;
+void pigeonholeSort(vector<int>& arr, long long& comparisons, long long& swaps) {
+    if (arr.empty()) return;
+    
+    comparisons = 0;
+    swaps = 0;
+    
+    // Find min and max with comparison counting
+    int min_val = arr[0];
+    int max_val = arr[0];
+    
+    for (size_t j = 1; j < arr.size(); ++j) {
+        comparisons++;
+        if (arr[j] < min_val) {
+            min_val = arr[j];
+        }
+        comparisons++;
+        if (arr[j] > max_val) {
+            max_val = arr[j];
+        }
     }
-
-    // Find min and max while counting comparisons
-    int minVal = arr[0], maxVal = arr[0];
-    for (size_t i = 1; i < arr.size(); i++) {
-        comp++; // compare with current min
-        if (arr[i] < minVal) minVal = arr[i];
-        comp++; // compare with current max
-        if (arr[i] > maxVal) maxVal = arr[i];
+    
+    int range = max_val - min_val + 1;
+    
+    // Create pigeonholes
+    vector<vector<int> > pigeonholes(range);
+    
+    // Place elements into pigeonholes (counting as operations)
+    for (size_t j = 0; j < arr.size(); ++j) {
+        int num = arr[j];
+        pigeonholes[num - min_val].push_back(num);
+        swaps++; // count placement as an operation
     }
-
-    int range = maxVal - minVal + 1;
-    vector<int> holes(range, 0);   // frequency array (pigeonholes)
-
-    // Count occurrences – each increment counts as a "move"
-    for (int num : arr) {
-        holes[num - minVal]++;
-        moves++;
-    }
-
-    // Rebuild sorted array
-    int idx = 0;
-    for (int i = 0; i < range; i++) {
-        for (int cnt = 0; cnt < holes[i]; cnt++) {
-            arr[idx++] = i + minVal;
-            moves++;
+    
+    // Collect from pigeonholes in ascending order
+    int index = 0;
+    for (int i = 0; i < range; ++i) {
+        for (size_t k = 0; k < pigeonholes[i].size(); ++k) {
+            int num = pigeonholes[i][k];
+            arr[index++] = num;
+            swaps++; // count placement back to array as an operation
         }
     }
 }
 
 int main() {
+    srand(time(0));
     int n;
-    cout << "Enter number of elements: ";
+    cout << "Enter the size of the list: ";
     cin >> n;
-
     vector<int> arr(n);
-    cout << "Enter " << n << " integers: ";
-    for (int i = 0; i < n; i++) cin >> arr[i];
-
-    cout << "Unsorted: ";
-    for (int x : arr) cout << x << " ";
+    cout << "Enter " << n << " integers to sort: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> arr[i];
+    }
+    cout << "Unsorted list: ";
+    for (size_t i = 0; i < arr.size(); ++i) cout << arr[i] << " ";
     cout << endl;
 
-    long long comparisons = 0, moves = 0;
-    pigeonholeSort(arr, comparisons, moves);
+    long long comparisons = 0, swaps = 0;
+    pigeonholeSort(arr, comparisons, swaps);
 
-    cout << "Sorted:   ";
-    for (int x : arr) cout << x << " ";
+    cout << "Sorted list: ";
+    for (size_t i = 0; i < arr.size(); ++i) cout << arr[i] << " ";
     cout << endl;
     cout << "Comparisons: " << comparisons << endl;
-    cout << "Moves (assignments): " << moves << endl;
-
+    cout << "Swaps: " << swaps << endl;
     return 0;
 }
