@@ -1,3 +1,7 @@
+//HOSTINE OLARE
+//EB3/68519/23
+//C++
+
 #include <iostream>
 #include <vector>
 #include <cstdlib>
