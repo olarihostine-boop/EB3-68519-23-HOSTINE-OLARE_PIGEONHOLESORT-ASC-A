@@ -1,12 +1,11 @@
-//HOSTINE OLARE
-//EB3/68519/23
-//C++
+// HOSTINE OLARE
+// EB3/68519/23
+// C++
 
 #include <iostream>
 #include <vector>
 #include <cstdlib>
 #include <ctime>
-#include <algorithm>
 
 using namespace std;
 
@@ -36,7 +35,7 @@ void pigeonholeSort(vector<int>& arr, long long& comparisons, long long& swaps) 
     // Create pigeonholes
     vector<vector<int> > pigeonholes(range);
     
-    // Place elements into pigeonholes (counting as operations)
+    // Place elements into pigeonholes (count as operations)
     for (size_t j = 0; j < arr.size(); ++j) {
         int num = arr[j];
         pigeonholes[num - min_val].push_back(num);
