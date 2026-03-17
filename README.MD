@@ -1,32 +1,24 @@
-# Pigeonhole Sort in C++(Ascending order)
+# Pigeonhole Sort in C++ (Ascending Order)
 
 ## Author
 **Name:** Hostine Olare  
 **Registration Number:** EB3/68519/23  
 
 ## Description
-This project implements the **Pigeonhole Sort algorithm** using C++.  
-The program sorts a list of integers entered by the user and also counts:
+This program implements the **Pigeonhole Sort algorithm** in C++ to sort a user-provided list of integers in ascending order. 
 
-- Number of **comparisons**
-- Number of **swaps/operations**
-
-Pigeonhole Sort works best when the range of input numbers is small compared to the number of elements.
+It also tracks and displays the algorithm's performance metrics:
+- Number of **comparisons** made.
+- Number of **swaps/operations** performed.
 
 ## Features
-- Accepts user input for list size
-- Accepts integers to sort
-- Displays the **unsorted list**
-- Sorts the numbers using **Pigeonhole Sort**
-- Displays the **sorted list**
-- Counts **comparisons and swaps**
+- Accepts user input for the number of elements and the elements themselves.
+- Handles input validation to prevent errors.
+- Displays the unsorted list, the sorted list, and the operation counts.
 
-Algorithm Steps
+## How it Works
+1. **Find the smallest and largest numbers:** The code first looks through your list to find the minimum and maximum values.
+2. **Setup boxes (pigeonholes):** It figures out the spread of your numbers (range = maximum - minimum + 1) and creates that many empty "boxes" (array of pigeonholes).
+3. **Drop numbers into boxes:** It goes through your list again. Each number is dropped into a specific box based on its value (box position = number - minimum).
+4. **Collect the numbers:** Finally, it goes through the boxes in order from left to right, picking up the numbers and putting them back into your original list. Since the boxes are in order, the list is now perfectly sorted!
 
-1. Find the minimum and maximum values in the list.
-
-2. Create pigeonholes based on the range of values.
-
-3. Place each element into its corresponding pigeonhole.
-
-4. Collect elements from pigeonholes in order to form the sorted list.
