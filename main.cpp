@@ -23,10 +23,11 @@ void pigeonholeSort(vector<int>& arr, long long& comparisons, long long& swaps) 
         comparisons++;
         if (arr[j] < min_val) {
             min_val = arr[j];
-        }
-        comparisons++;
-        if (arr[j] > max_val) {
-            max_val = arr[j];
+        } else {
+            comparisons++;
+            if (arr[j] > max_val) {
+                max_val = arr[j];
+            }
         }
     }
     
@@ -57,7 +58,10 @@ int main() {
     srand(time(0));
     int n;
     cout << "Enter the size of the list: ";
-    cin >> n;
+    if (!(cin >> n) || n <= 0) {
+        cout << "Error: Size must be a positive integer." << endl;
+        return 1;
+    }
     vector<int> arr(n);
     cout << "Enter " << n << " integers to sort: ";
     for (int i = 0; i < n; ++i) {
